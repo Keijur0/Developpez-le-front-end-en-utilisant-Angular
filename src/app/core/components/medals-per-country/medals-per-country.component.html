@@ -1,0 +1,17 @@
+<div *ngIf="medalsPerCountry$ | async as medals" #containerRef class="chart-pie-container">
+    <ngx-charts-pie-chart
+        class="pie-chart"
+        [view]="[containerRef.offsetWidth, containerRef.offsetHeight]"
+        [results]="medals"
+        [scheme]="scheme"
+        [labels]="labels"
+        [trimLabels]="trimLabels"
+        (activate)="onActivate($event)">
+        <ng-template #tooltipTemplate let-model="model" style="background-color: rgb(0, 108, 112)">
+            <div class="custom-tooltip">
+              <p>{{model.name}}</p>
+              <p>🏅 {{model.value}}</p>
+            </div>
+        </ng-template>
+    </ngx-charts-pie-chart>
+</div>

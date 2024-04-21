@@ -1,0 +1,4 @@
+<div class="infobox" *ngIf="infoBoxContent$ | async as info">
+    <p class="infoboxtitle">{{info.name}}</p>
+    <p class="infoboxvalue">{{info.value}}</p>
+</div>
