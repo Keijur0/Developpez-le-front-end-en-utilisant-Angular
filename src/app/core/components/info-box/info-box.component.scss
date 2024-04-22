@@ -20,6 +20,7 @@ p, div {
     align-items: center;
     height: fit-content;
     width: fit-content;
+    border: 0.1em solid rgb(0, 108, 112);
     border-radius: 15px;
     padding: 10px;
     margin: auto;
@@ -27,22 +28,19 @@ p, div {
 
 @media screen and (min-width: 650px){
     .infobox {
-        font-size: 2em;
-        border: 0.1em solid rgb(0, 108, 112);
+        font-size: 1.7em;
     }
 }
 
 @media screen and (max-width: 650px){
     .infobox {
-        font-size: 1.3em;
-        border: 0.3vw solid rgb(0, 108, 112);
+        font-size: 1.2em;
     }
 }
 
 @media screen and (max-height: 600px) and (max-width: 1000px) {
     .infobox {
-        font-size: 1.5em;
-        border: 0.3vw solid rgb(0, 108, 112);
+        font-size: 1.4em;
     }
 }
 
