@@ -1,25 +1,41 @@
+ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+    background-color: rgb(0, 108, 112);
+    .tooltip-caret.position-top {
+        border-top-color: rgb(0, 108, 112);
+
+    }
+  }
+
+.title {
+    border-radius: 10px;
+    background-color:rgb(0, 108, 112);
+    height: fit-content;
+    width: fit-content;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    justify-self: center;
+    margin: auto;
+    font-family: Verdana;
+    font-weight: lighter;
+}
+
+.chart-pie-container {
+    height: 100%;
+    width: 100%;
+}
+
+html, body {
+    margin: 0px;
+}
+
+
 @media screen and (min-width: 650px){
     .title {
         font-size: 2.5em;
-        border-radius: 10px;
-        background-color:rgb(0, 108, 112);
-        height: fit-content;
-        width: fit-content;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        justify-self: center;
-        margin: auto;
-        font-family:Arial;
-    }
-
-    .chart-pie-container {
-        height: 100%;
-        width: 100%;
     }
 
     html, body {
-        margin: 0px;
         height: 90%;
     }
 }
@@ -27,25 +43,13 @@
 @media screen and (max-width: 650px){
     .title {
         font-size: 1.5em;
-        border-radius: 10px;
-        background-color:rgb(0, 108, 112);
-        height: fit-content;
-        width: fit-content;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        justify-self: center;
-        margin: auto;
-        font-family:Arial;
     }
 
     .chart-pie-container {
         height: 300%;
-        width: 100%;
     }
 
     html, body {
-        margin: 0px;
         height: 50%;
     }
 }
@@ -53,25 +57,9 @@
 @media screen and (max-height: 600px) and (max-width: 1000px) {
     .title {
         font-size: 2em;
-        border-radius: 10px;
-        background-color:rgb(0, 108, 112);
-        height: fit-content;
-        width: fit-content;
-        color: white;
-        padding: 10px;
-        text-align: center;
-        justify-self: center;
-        margin: auto;
-        font-family:Arial;
-    }
-
-    .chart-pie-container {
-        height: 100%;
-        width: 100%;
     }
 
     html, body {
-        margin: 0px;
         height: 85%;
     }
 }

@@ -1,110 +1,49 @@
+.infoboxtitle {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.infoboxvalue {
+    font-weight: bold;
+}
+
+p, div {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.infobox {
+    font-family: Verdana;
+    font-weight: lighter;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 15px;
+    padding: 10px;
+    margin: auto;
+}
+
 @media screen and (min-width: 650px){
     .infobox {
-        font-family: Arial;
         font-size: 2em;
-        align-items: center;
-        height: fit-content;
-        width: fit-content;
         border: 0.1em solid rgb(0, 108, 112);
-        border-radius: 15px;
-        padding: 10px;
-        margin: auto;
-    }
-
-    .infoboxtitle {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .infoboxvalue {
-        font-weight: bold;
-    }
-
-    p {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-    }
-
-    div {
-        display:flex;
-        flex-direction: column;
-        margin: auto;
     }
 }
 
 @media screen and (max-width: 650px){
     .infobox {
-        font-family: Arial;
         font-size: 1.5em;
-        align-items: center;
-        height: fit-content;
-        width: fit-content;
         border: 0.3vw solid rgb(0, 108, 112);
-        border-radius: 15px;
-        padding: 5px;
-        margin: auto;
-    }
-
-    .infoboxtitle {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .infoboxvalue {
-        font-weight: bold;
-    }
-
-    p {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-    }
-
-    div {
-        display:flex;
-        flex-direction: column;
-        margin: auto;
     }
 }
 
 @media screen and (max-height: 600px) and (max-width: 1000px) {
     .infobox {
-        font-family: Arial;
         font-size: 1.5em;
-        align-items: center;
-        height: fit-content;
-        width: fit-content;
         border: 0.3vw solid rgb(0, 108, 112);
-        border-radius: 15px;
-        padding: 10px;
-        margin: auto;
     }
-
-    .infoboxtitle {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .infoboxvalue {
-        font-weight: bold;
-    }
-
-    p {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-    }
-
-    div {
-        display:flex;
-        flex-direction: column;
-        margin: auto;
-    }
-  
 }
 
 

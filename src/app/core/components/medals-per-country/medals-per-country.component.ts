@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Medals } from '../../models/Medals';
 import { OlympicService } from '../../services/olympic.service';
 import { Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { Olympic } from '../../models/Olympic';
 @Component({
   selector: 'app-medals-per-country',
   templateUrl: './medals-per-country.component.html',
-  styleUrls: ['./medals-per-country.component.scss']
+  styleUrls: ['./medals-per-country.component.scss'],
 })
 export class MedalsPerCountryComponent implements OnInit {
   @Input() data$!: Observable<Olympic[]>;
@@ -24,10 +24,6 @@ export class MedalsPerCountryComponent implements OnInit {
     // formatting data for chart pie
     this.olympicService.formatDataToMedalsPerCountry(this.data$);
     this.medalsPerCountry$ = this.olympicService.getMedalsPerCountry();
-  }
-
-  onActivate(data: Medals): void{
-    console.log('Activated', JSON.parse(JSON.stringify(data)));
   }
 
 }
