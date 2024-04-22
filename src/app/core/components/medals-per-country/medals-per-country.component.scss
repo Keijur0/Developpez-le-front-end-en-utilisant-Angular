@@ -26,7 +26,6 @@
     ::ng-deep ngx-charts-pie-chart .pie-label {
         font-size: 1.7em;
     }
-
     .custom-tooltip {
         font-size: 2em;
     }
@@ -34,14 +33,18 @@
 
 @media screen and (max-width: 650px) {
     ::ng-deep ngx-charts-chart .pie-label {
-        font-size: 1.3em;
+        font-size: 0.7em;
     }
-
     .custom-tooltip {
-        font-size: 1.2em;
-
+        font-size: 1.4em;
     }
 }
 
-
-
+@media screen and (max-height: 600px) and (max-width: 1000px) {
+    ::ng-deep ngx-charts-chart .pie-label {
+        font-size: 1.2em;
+    }
+    .custom-tooltip {
+        font-size: 1.5em;
+    }
+}

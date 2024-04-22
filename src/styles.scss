@@ -16,6 +16,7 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     text-align: center;
     justify-self: center;
     margin: auto;
+    margin-top: 5px;
     font-family: Verdana;
     font-weight: lighter;
 }
@@ -29,12 +30,10 @@ html, body {
     margin: 0px;
 }
 
-
 @media screen and (min-width: 650px){
     .title {
         font-size: 2.5em;
     }
-
     html, body {
         height: 90%;
     }
@@ -44,11 +43,9 @@ html, body {
     .title {
         font-size: 1.5em;
     }
-
     .chart-pie-container {
         height: 300%;
     }
-
     html, body {
         height: 50%;
     }
@@ -58,7 +55,6 @@ html, body {
     .title {
         font-size: 2em;
     }
-
     html, body {
         height: 85%;
     }
