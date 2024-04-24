@@ -4,19 +4,21 @@
         <app-info-box
             class="grid-item-1" 
             [name]="'nbJos'"
+            [data$]=olympics$
             >
         </app-info-box>
         <app-info-box
             class="grid-item-2"
             [name]="'nbCountries'"
+            [data$]=olympics$
             >
         </app-info-box> 
     </div>
-    <app-medals-per-country
+    <app-pie-chart
     class="chart-pie-container"
     [data$]=olympics$
     >
-    </app-medals-per-country>
+    </app-pie-chart>
 </body>
 
 

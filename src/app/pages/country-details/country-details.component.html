@@ -1,9 +1,24 @@
 <h2>{{countryName}}</h2>
 <body>
     <div>
-        <p>number of entries</p>
-        <p>total number medals</p>
-        <p>total number of athletes</p>
+        <app-info-box
+        [name]="'nbEntries'"
+        [data$]=olympics$
+        [countryName]="countryName"
+        >
+        </app-info-box>
+        <app-info-box
+        [name]="'nbMedals'"
+        [data$]=olympics$
+        [countryName]="countryName"
+        >
+        </app-info-box>
+        <app-info-box
+        [name]="'nbAthletes'"
+        [data$]=olympics$
+        [countryName]="countryName"
+        >
+        </app-info-box>
     </div>
     <app-line-chart
     >

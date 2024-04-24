@@ -9,13 +9,13 @@ interface Medals {
 }
 
 @Component({
-  selector: 'app-medals-per-country',
-  templateUrl: './medals-per-country.component.html',
-  styleUrls: ['./medals-per-country.component.scss'],
+  selector: 'app-pie-chart',
+  templateUrl: './pie-chart.component.html',
+  styleUrls: ['./pie-chart.component.scss'],
 })
 
-export class MedalsPerCountryComponent implements OnInit {
-  @Input() data$!: Observable<Olympic[]>;
+export class PieChartComponent implements OnInit {
+  @Input() data$: Observable<Olympic[]> = new Observable<Olympic[]>;
   public medalsPerCountry$ = new BehaviorSubject<Medals[]>([]);
 
   // Chart pie options
@@ -52,6 +52,6 @@ export class MedalsPerCountryComponent implements OnInit {
     }
 
   onSelect(data: Medals) {
-    this.router.navigate(['/country-details'], { queryParams: {data: data.name}});
+    this.router.navigate(['/country-details'], { queryParams: {data: data.name} });
   }
 }
