@@ -51,8 +51,7 @@ export class MedalsPerCountryComponent implements OnInit {
       return this.medalsPerCountry$;
     }
 
-  onSelect(data: Medals): void {
-    console.log('clicked', JSON.parse(JSON.stringify(data)))
-    this.router.navigateByUrl('country-details');
+  onSelect(data: Medals) {
+    this.router.navigate(['/country-details'], { queryParams: {data: data.name}});
   }
 }

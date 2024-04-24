@@ -1,23 +1,22 @@
 <h2 class="title">Medals per Country</h2>
-<div class="parent" *ngIf="olympics$ | async as olympics">
-    <app-info-box
-        class="grid-item-1" 
-        [name]="'nbJos'"
-        >
-    </app-info-box>
-    <app-info-box
-        class="grid-item-2"
-        [name]="'nbCountries'"
-        >
-    </app-info-box> 
-</div>
-<body>
+<body *ngIf="olympics$ | async as olympics">
+    <div class="parent">
+        <app-info-box
+            class="grid-item-1" 
+            [name]="'nbJos'"
+            >
+        </app-info-box>
+        <app-info-box
+            class="grid-item-2"
+            [name]="'nbCountries'"
+            >
+        </app-info-box> 
+    </div>
     <app-medals-per-country
     class="chart-pie-container"
     [data$]=olympics$
     >
     </app-medals-per-country>
-
 </body>
 
 

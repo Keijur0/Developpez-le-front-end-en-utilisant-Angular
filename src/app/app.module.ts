@@ -10,9 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { MedalsPerCountryComponent } from './core/components/medals-per-country/medals-per-country.component';
 import { InfoBoxComponent } from './core/components/info-box/info-box.component';
 import { CountryDetailsComponent } from './pages/country-details/country-details.component';
+import { LineChartComponent } from './core/components/line-chart/line-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, MedalsPerCountryComponent, InfoBoxComponent, CountryDetailsComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, MedalsPerCountryComponent, InfoBoxComponent, CountryDetailsComponent, LineChartComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgxChartsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
