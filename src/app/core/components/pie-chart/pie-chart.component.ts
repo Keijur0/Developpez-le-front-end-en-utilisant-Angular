@@ -16,12 +16,10 @@ interface Medals {
 
 export class PieChartComponent implements OnInit {
   @Input() data$: Observable<Olympic[]> = new Observable<Olympic[]>;
+  @Input() scheme: string = '';
+  @Input() labels: boolean = false;
+  @Input() trimLabels: boolean = false;
   public medalsPerCountry$ = new BehaviorSubject<Medals[]>([]);
-
-  // Chart pie options
-  scheme: string = "cool";
-  labels: boolean = true;
-  trimLabels: boolean = false;
 
   constructor( private router: Router ) {}
 
@@ -52,6 +50,6 @@ export class PieChartComponent implements OnInit {
     }
 
   onSelect(data: Medals) {
-    this.router.navigate(['/country-details'], { queryParams: {data: data.name} });
+    this.router.navigate(['country-details'], { queryParams: {data: data.name} });
   }
 }

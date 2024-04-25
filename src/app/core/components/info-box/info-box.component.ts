@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { Olympic } from '../../models/Olympic';
-import { Participation } from '../../models/Participation';
 
 interface InfoBox {
   name: string;
@@ -16,19 +15,12 @@ interface InfoBox {
 export class InfoBoxComponent implements OnInit {
   @Input() name: string = '';
   @Input() data$: Observable<Olympic[]> = new Observable<Olympic[]>;
-  @Input() countryName: string = '';
-  private countryData$: Observable<Olympic[]> = new Observable<Olympic[]>;
   public infoBoxContent$: Observable<InfoBox> = new Observable<InfoBox>;
   public numberOfJos$ = new BehaviorSubject<InfoBox>({name: "Number of JOs", value: 0});
-  public numberOfAlthetes$ = new BehaviorSubject<InfoBox>({name: "Total number of athletes", value: 0});
 
   constructor() {}
 
   ngOnInit(): void {
-    
-    if(this.countryName){
-      this.countryData$ = this.getCountryData(this.data$, this.countryName);
-    }
     // Choosing type of box
     switch(this.name){
       case "nbJos": {
@@ -41,15 +33,15 @@ export class InfoBoxComponent implements OnInit {
         break;
       }
       case "nbEntries": {
-        this.infoBoxContent$ = this.getNumberOfEntries(this.countryData$);
+        this.infoBoxContent$ = this.getNumberOfEntries(this.data$);
         break;
       }
       case "nbAthletes": {
-        this.infoBoxContent$ = this.getNumberOfAthletes(this.countryData$);
+        this.infoBoxContent$ = this.getNumberOfAthletes(this.data$);
         break;
       }
       case "nbMedals": {
-        this.infoBoxContent$ = this.getNumberOfMedals(this.countryData$);
+        this.infoBoxContent$ = this.getNumberOfMedals(this.data$);
         break;
       }
       default: { 
@@ -58,16 +50,7 @@ export class InfoBoxComponent implements OnInit {
   }
   }
 
-  // Format specific country data
-  getCountryData(inputData$: Observable<Olympic[]>, country: string): Observable<Olympic[]> {
-    return inputData$.pipe(
-      map(olympicItems => {
-        return olympicItems.filter(olympicItem => country.toLowerCase() === olympicItem.country.toLowerCase());
-      })
-    )
-  }
-
-  // Gathering and formatting data for Info Boxes
+  // Formatting nbJos InfoBox
   formatNumberOfJos(inputData$: Observable<Olympic[]>): void {
     let diffJos: number[] = [];
     inputData$.pipe(
@@ -87,12 +70,12 @@ export class InfoBoxComponent implements OnInit {
     });
   }
 
-  // Retrieving formatted Number of JOs
+  // Retrieving formatted nbJos InfoBox
   getNumberOfJos(): BehaviorSubject<InfoBox> {
     return this.numberOfJos$;
   }
 
-  // Getting the number of countries
+  // Getting nbCountries InfoBox
   getNumberofCountries(inputData$: Observable<Olympic[]>): BehaviorSubject<InfoBox> {
     const nbCountries$ = inputData$.pipe(
       map(array => array.length)

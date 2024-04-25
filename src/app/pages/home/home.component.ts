@@ -10,6 +10,11 @@ import { Olympic } from 'src/app/core/models/Olympic';
 })
 export class HomeComponent implements OnInit {
   public olympics$: Observable<Olympic[]> = new Observable<Olympic[]>;
+
+  // Pie chart options
+  scheme: string = "cool";
+  labels: boolean = true;
+  trimLabels: boolean = false;
   
   constructor(private olympicService: OlympicService) {}
 

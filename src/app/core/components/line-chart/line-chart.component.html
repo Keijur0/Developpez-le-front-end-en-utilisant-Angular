@@ -1,1 +1,15 @@
-<p>line-chart works!</p>
+<div *ngIf="lineChartData$ | async as data">     
+    <ngx-charts-line-chart
+        [results]="data"
+        [scheme]="scheme"
+        [animations]="animations"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [showGridLines]="showGridLines"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [autoScale]="autoScale"
+        >
+    </ngx-charts-line-chart>
+</div>

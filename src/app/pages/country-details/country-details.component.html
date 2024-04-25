@@ -1,26 +1,33 @@
-<h2>{{countryName}}</h2>
+<h2 class="title">{{countryName}}</h2>
 <body>
     <div>
         <app-info-box
         [name]="'nbEntries'"
-        [data$]=olympics$
-        [countryName]="countryName"
+        [data$]=countryData$
         >
         </app-info-box>
         <app-info-box
         [name]="'nbMedals'"
-        [data$]=olympics$
-        [countryName]="countryName"
+        [data$]=countryData$
         >
         </app-info-box>
         <app-info-box
         [name]="'nbAthletes'"
-        [data$]=olympics$
-        [countryName]="countryName"
+        [data$]=countryData$
         >
         </app-info-box>
     </div>
     <app-line-chart
+        [data$]="countryData$"
+        [scheme]="scheme"
+        [animations]="animations"
+        [xAxis]="xAxis"
+        [yAxis]="yAxis"
+        [showGridLines]="showGridLines"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [autoScale]="autoScale"
     >
     </app-line-chart>
 </body>
