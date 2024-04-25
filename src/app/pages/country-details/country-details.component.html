@@ -1,5 +1,5 @@
 <h2 class="title">{{countryName}}</h2>
-<body>
+<body *ngIf="countryData$ | async as countryData">
     <div>
         <app-info-box
         [name]="'nbEntries'"

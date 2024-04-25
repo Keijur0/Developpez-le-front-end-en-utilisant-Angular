@@ -8,20 +8,6 @@
     stroke-width: 0.2em;
 }
 
-.custom-tooltip {
-    font-family: Verdana;
-    font-weight: lighter;
-    border-radius: 5px;
-    height: 100%;
-    width: 100%;
-    margin-top: 3px;
-    margin-bottom: 3px;
-}
-
-.tooltip-values {
-    margin: 0px;
-}
-
 @media screen and (min-width: 650px) {
     ::ng-deep ngx-charts-pie-chart .pie-label {
         font-size: 1.7em;

@@ -1,4 +1,5 @@
-<div *ngIf="lineChartData$ | async as data">     
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div *ngIf="lineChartData$ | async as data" class="chart-pie-container">     
     <ngx-charts-line-chart
         [results]="data"
         [scheme]="scheme"
@@ -9,7 +10,19 @@
         [showXAxisLabel]="showXAxisLabel"
         [showYAxisLabel]="showYAxisLabel"
         [xAxisLabel]="xAxisLabel"
-        [autoScale]="autoScale"
-        >
+        [autoScale]="autoScale">
+        <ng-template #tooltipTemplate let-model="model">
+            <div class="custom-tooltip">
+            <p class="tooltip-values">{{model.name}}</p>
+            <p class="tooltip-values"><i class="fas fa-award fa-xs"></i>{{model.value}}</p>
+            </div>
+        </ng-template>
+        <ng-template #seriesTooltipTemplate let-model="model">
+            <div class="custom-tooltip">
+                <p class="tooltip-values">{{model.name}}</p>
+                <p class="tooltip-values"><i class="fas fa-award fa-xs"></i>{{model.value}}</p>
+            </div>
+        </ng-template>
     </ngx-charts-line-chart>
+
 </div>

@@ -15,6 +15,11 @@ export class HomeComponent implements OnInit {
   scheme: string = "cool";
   labels: boolean = true;
   trimLabels: boolean = false;
+
+  // Error handling
+  public error = this.olympicService.errorState;
+  public errorMessage = this.olympicService.errorMessage;
+  
   
   constructor(private olympicService: OlympicService) {}
 

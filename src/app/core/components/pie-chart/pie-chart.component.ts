@@ -19,18 +19,17 @@ export class PieChartComponent implements OnInit {
   @Input() scheme: string = '';
   @Input() labels: boolean = false;
   @Input() trimLabels: boolean = false;
-  public medalsPerCountry$ = new BehaviorSubject<Medals[]>([]);
+  public pieChartData$ = new BehaviorSubject<Medals[]>([]);
 
   constructor( private router: Router ) {}
 
   ngOnInit(): void {
-    // formatting data for chart pie
-    this.formatMedalsPerCountry(this.data$);
-    this.medalsPerCountry$ = this.getMedalsPerCountry();
+    this.pieChartData$ = this.getMedalsPerCountry(this.data$);
   }
 
     // Gathering medals per country and formatting data for chart pie
-    formatMedalsPerCountry(inputData$: Observable<Olympic[]>): void {
+    getMedalsPerCountry(inputData$: Observable<Olympic[]>): BehaviorSubject<Medals[]> {
+      const subject: BehaviorSubject<Medals[]> = new BehaviorSubject<Medals[]>([]);
       inputData$.pipe(
         map(olympicData => {
            const medalsPerCountry = olympicData.map(olympicItem => {
@@ -40,14 +39,11 @@ export class PieChartComponent implements OnInit {
               value: totalMedals
             };
           });
-          this.medalsPerCountry$.next(medalsPerCountry);
+          subject.next(medalsPerCountry);
         })
       ).subscribe()
+      return subject;
     };
-
-    getMedalsPerCountry(): BehaviorSubject<Medals[]> {
-      return this.medalsPerCountry$;
-    }
 
   onSelect(data: Medals) {
     this.router.navigate(['country-details'], { queryParams: {data: data.name} });

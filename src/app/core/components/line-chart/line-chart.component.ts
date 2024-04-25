@@ -34,7 +34,6 @@ public lineChartData$: BehaviorSubject<MedalsPerOlympic[]> = new BehaviorSubject
 
   ngOnInit(): void {
     this.lineChartData$ = this.getOlympicDataForLineChart(this.data$);
-    console.log(this.lineChartData$);
   }
 
   // Formatting and retrieving Olympic data for line chart
@@ -42,7 +41,7 @@ public lineChartData$: BehaviorSubject<MedalsPerOlympic[]> = new BehaviorSubject
     const subject$: BehaviorSubject<MedalsPerOlympic[]> = new BehaviorSubject<MedalsPerOlympic[]>([]);
     inputData$.pipe(
       map(olympicData => {
-        const countryMedalsPerOlympic: MedalsPerOlympic[] = olympicData.map(olympicItem => {
+        const countryMedalsPerOlympic = olympicData.map(olympicItem => {
           const medalsPerYear: Series[] = [];
           olympicItem.participations.forEach(participation => {
             const series: Series = {
@@ -61,5 +60,4 @@ public lineChartData$: BehaviorSubject<MedalsPerOlympic[]> = new BehaviorSubject
     ).subscribe();
     return subject$;
   }
-
 }
