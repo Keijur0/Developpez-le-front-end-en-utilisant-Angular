@@ -17,14 +17,17 @@ export class HomeComponent implements OnInit {
   trimLabels: boolean = false;
 
   // Error handling
-  public error = this.olympicService.errorState;
-  public errorMessage = this.olympicService.errorMessage;
+  public error: Error | null = this.olympicService.error;
+  public errorState: boolean = this.olympicService.errorState;
+  public errorMessage: string = this.olympicService.errorMessage;
+  public noDataMessage: string = "No data to load.";
   
   
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
     this.olympics$ = this.olympicService.getOlympics();
+
   }
 
 

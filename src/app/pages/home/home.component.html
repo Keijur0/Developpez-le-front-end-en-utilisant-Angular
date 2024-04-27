@@ -1,30 +1,34 @@
 <h2 class="title">Medals per Country</h2>
-<ng-template *ngIf="error">
-    {{errorMessage}}
-</ng-template>
 <body *ngIf="olympics$ | async as olympics">
-    <div class="parent">
-        <app-info-box
-            class="grid-item-1" 
-            [name]="'nbJos'"
-            [data$]=olympics$
-            >
-        </app-info-box>
-        <app-info-box
-            class="grid-item-2"
-            [name]="'nbCountries'"
-            [data$]=olympics$
-            >
-        </app-info-box> 
+    <div *ngIf="olympics.length == 0 && errorState == true">
+        <div>{{errorMessage}}</div>
     </div>
-    <app-pie-chart
-    class="chart-pie-container"
-    [data$]=olympics$
-    [scheme]="scheme"
-    [labels]="labels"
-    [trimLabels]="trimLabels"
-    >
-    </app-pie-chart>
+    <div *ngIf="olympics.length == 0 && errorState == false">
+        <div>{{noDataMessage}}</div>
+    </div>
+    <div *ngIf="olympics.length > 0">
+        <div class="grid-parent">
+            <app-info-box
+                class="grid-item-1" 
+                [name]="'nbJos'"
+                [data$]=olympics$
+                >
+            </app-info-box>
+            <app-info-box
+                class="grid-item-2"
+                [name]="'nbCountries'"
+                [data$]=olympics$
+                >
+            </app-info-box> 
+        </div>
+        <app-pie-chart
+            [data$]=olympics$
+            [scheme]="scheme"
+            [labels]="labels"
+            [trimLabels]="trimLabels"
+            >
+        </app-pie-chart>
+    </div>
 </body>
 
 

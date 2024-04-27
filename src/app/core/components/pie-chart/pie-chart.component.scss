@@ -1,36 +1,21 @@
-::ng-deep ngx-charts-pie-chart .pie-label {
-    font-family: Verdana;
-    font-weight: lighter;
-    padding: 10px; // TODO: ne fonctionne pas
-}
-
 ::ng-deep ngx-charts-pie-chart .pie-label-line {
-    stroke-width: 0.2em;
+    stroke-width: 0.2rem;
 }
 
 @media screen and (min-width: 650px) {
     ::ng-deep ngx-charts-pie-chart .pie-label {
-        font-size: 1.7em;
-    }
-    .custom-tooltip {
-        font-size: 2em;
+        font-size: 1.6rem;
     }
 }
 
 @media screen and (max-width: 650px) {
     ::ng-deep ngx-charts-chart .pie-label {
-        font-size: 0.7em;
-    }
-    .custom-tooltip {
-        font-size: 1.4em;
+        font-size: 0.7rem;
     }
 }
 
 @media screen and (max-height: 600px) and (min-width: 1000px) {
     ::ng-deep ngx-charts-chart .pie-label {
-        font-size: 1.2em;
-    }
-    .custom-tooltip {
-        font-size: 1.5em;
+        font-size: 1.2rem;
     }
 }

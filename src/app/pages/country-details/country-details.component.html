@@ -1,17 +1,27 @@
-<h2 class="title">{{countryName}}</h2>
+<div class="header-grid-parent">
+    <div class="header-grid-item-1">
+        <button class="back-button" routerLink="">back</button>
+    </div>
+    <div class="header-grid-item-2">
+        <h2 class="title">{{countryName}}</h2>
+    </div>
+</div>
 <body *ngIf="countryData$ | async as countryData">
-    <div>
+    <div class="grid-parent">
         <app-info-box
+        class="grid-item-1"
         [name]="'nbEntries'"
         [data$]=countryData$
         >
         </app-info-box>
         <app-info-box
+        class="grid-item-2"
         [name]="'nbMedals'"
         [data$]=countryData$
         >
         </app-info-box>
         <app-info-box
+        class="grid-item-3"
         [name]="'nbAthletes'"
         [data$]=countryData$
         >
@@ -31,4 +41,3 @@
     >
     </app-line-chart>
 </body>
-<a routerLink="">back</a>
