@@ -25,12 +25,37 @@ export class CountryDetailsComponent implements OnInit {
     xAxisLabel: string = "Dates";
     autoScale: boolean = true;
 
+      // Error / loading handling
+    public errorMessage: string = '';
+    public errorState: boolean = false;
+    public noDataMessage: string = "No data to load.";
+    public isLoading: boolean = false;
+    public loadingMessage: string = "Loading...";
+
   constructor( private route: ActivatedRoute, private olympicService: OlympicService ) { }
 
   ngOnInit(): void {
+    // Loading state
+    this.olympicService.getLoadingState().subscribe((loadingState) => {
+      this.isLoading = loadingState;
+    })
+
+    // Retrieving data
     this.route.queryParams.subscribe(params => this.countryName = params['data']);
     this.olympics$ = this.olympicService.getOlympics();
     this.countryData$ = this.getCountryData(this.olympics$, this.countryName);
+
+    // Error handling
+    this.olympicService.getErrorState().subscribe((errorState) => {
+      this.errorState = errorState;
+      if (this.errorState) {
+        this.olympicService.getErrorMessage().subscribe((errorMessage) => {
+          this.errorMessage = errorMessage;
+          this.isLoading = false;
+          
+        });
+      }
+    })
   }
 
   // Format specific country data

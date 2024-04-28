@@ -7,37 +7,48 @@
     </div>
 </div>
 <body *ngIf="countryData$ | async as countryData">
-    <div class="grid-parent">
-        <app-info-box
-        class="grid-item-1"
-        [name]="'nbEntries'"
-        [data$]=countryData$
-        >
-        </app-info-box>
-        <app-info-box
-        class="grid-item-2"
-        [name]="'nbMedals'"
-        [data$]=countryData$
-        >
-        </app-info-box>
-        <app-info-box
-        class="grid-item-3"
-        [name]="'nbAthletes'"
-        [data$]=countryData$
-        >
-        </app-info-box>
+    <div *ngIf="countryData.length == 0 && errorState">
+        <div class="status center">{{errorMessage}}</div>
     </div>
-    <app-line-chart
-        [data$]="countryData$"
-        [scheme]="scheme"
-        [animations]="animations"
-        [xAxis]="xAxis"
-        [yAxis]="yAxis"
-        [showGridLines]="showGridLines"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [autoScale]="autoScale"
-    >
-    </app-line-chart>
+    <div *ngIf="countryData.length == 0 && !errorState && isLoading">
+        <div class="status center">{{loadingMessage}}</div>
+    </div>
+    <div *ngIf="countryData.length == 0 && !errorState && !isLoading">
+        <div class="status center">{{noDataMessage}}</div>
+    </div>
+    <div *ngIf="countryData.length > 0">
+        <div class="grid-parent">
+            <app-info-box
+            class="grid-item-1"
+            [name]="'nbEntries'"
+            [data$]=countryData$
+            >
+            </app-info-box>
+            <app-info-box
+            class="grid-item-2"
+            [name]="'nbMedals'"
+            [data$]=countryData$
+            >
+            </app-info-box>
+            <app-info-box
+            class="grid-item-3"
+            [name]="'nbAthletes'"
+            [data$]=countryData$
+            >
+            </app-info-box>
+        </div>
+        <app-line-chart
+            [data$]="countryData$"
+            [scheme]="scheme"
+            [animations]="animations"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [showGridLines]="showGridLines"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxisLabel]="xAxisLabel"
+            [autoScale]="autoScale"
+        >
+        </app-line-chart>
+    </div>
 </body>

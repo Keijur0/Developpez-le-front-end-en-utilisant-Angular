@@ -1,10 +1,13 @@
 <h2 class="title">Medals per Country</h2>
 <body *ngIf="olympics$ | async as olympics">
-    <div *ngIf="olympics.length == 0 && errorState == true">
-        <div>{{errorMessage}}</div>
+    <div *ngIf="olympics.length == 0 && errorState">
+        <div class="status center">{{errorMessage}}</div>
     </div>
-    <div *ngIf="olympics.length == 0 && errorState == false">
-        <div>{{noDataMessage}}</div>
+    <div *ngIf="olympics.length == 0 && !errorState && isLoading">
+        <div class="status center">{{loadingMessage}}</div>
+    </div>
+    <div *ngIf="olympics.length == 0 && !errorState && !isLoading">
+        <div class="status center">{{noDataMessage}}</div>
     </div>
     <div *ngIf="olympics.length > 0">
         <div class="grid-parent">

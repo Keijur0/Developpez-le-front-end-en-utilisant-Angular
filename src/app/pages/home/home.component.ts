@@ -16,19 +16,35 @@ export class HomeComponent implements OnInit {
   labels: boolean = true;
   trimLabels: boolean = false;
 
-  // Error handling
-  public error: Error | null = this.olympicService.error;
-  public errorState: boolean = this.olympicService.errorState;
-  public errorMessage: string = this.olympicService.errorMessage;
+  // Error / loading handling
+  public errorMessage: string = '';
+  public errorState: boolean = false;
   public noDataMessage: string = "No data to load.";
+  public isLoading: boolean = false;
+  public loadingMessage: string = "Loading...";
   
   
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
+    // Loading state
+    this.olympicService.getLoadingState().subscribe((loadingState) => {
+      this.isLoading = loadingState;
+    })
+
+    // Retrieving data
     this.olympics$ = this.olympicService.getOlympics();
 
+    // Error handling
+    this.olympicService.getErrorState().subscribe((errorState) => {
+      this.errorState = errorState;
+      if (this.errorState) {
+        this.olympicService.getErrorMessage().subscribe((errorMessage) => {
+          this.errorMessage = errorMessage;
+          this.isLoading = false;
+          
+        });
+      }
+    })
   }
-
-
 }

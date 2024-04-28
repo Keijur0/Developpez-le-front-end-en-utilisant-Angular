@@ -10,23 +10,26 @@ import { Olympic } from '../models/Olympic';
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Olympic[]>([]);
-  public error: Error | null = null;
-  public errorState: boolean = false;
-  public errorMessage: string = '';
+  public errorState$ = new BehaviorSubject<boolean>(false);
+  public errorMessage$ = new BehaviorSubject<string>('');
+  public loadingState$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) {}
 
   loadInitialData() {
+    this.loadingState$.next(true);
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => {
         this.olympics$.next(value);
-        this.errorState = false;
-        this.errorMessage = '';
+        this.errorState$.next(false);
+        this.errorMessage$.next('');
+        this.loadingState$.next(false);
   }),
       catchError((error) => {
-        this.errorState = true;
-        this.errorMessage = 'Could not load data...';
+        this.errorState$.next(true);
+        this.errorMessage$.next('Could not load data...');
         this.olympics$.next([]);
+        this.loadingState$.next(false);
         return throwError(() => error);
       })
     );
@@ -34,5 +37,17 @@ export class OlympicService {
 
   getOlympics() {
     return this.olympics$.asObservable();
+  }
+
+  getErrorState() {
+    return this.errorState$.asObservable();
+  }
+
+  getErrorMessage() {
+    return this.errorMessage$.asObservable();
+  }
+
+  getLoadingState() {
+    return this.loadingState$.asObservable();
   }
 }

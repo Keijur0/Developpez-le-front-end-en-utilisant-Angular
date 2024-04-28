@@ -20,10 +20,27 @@
     font-family: Verdana;
     font-weight: lighter;
     padding: 5px;
+    border-radius: 10px;
+}
+
+.center {
+    width: 100vw;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.status {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 2rem;
 }
 
 html, body {
     margin: auto;
+    font-family: Verdana;
 }
 
 ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
@@ -82,7 +99,7 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
         font-size: 1.7rem;
     }
     html, body {
-        height: 95%;
+        height: 90%;
     }
     .custom-tooltip {
         font-size: 1.6rem;
