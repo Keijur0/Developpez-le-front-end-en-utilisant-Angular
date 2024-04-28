@@ -35,7 +35,6 @@
 .status {
     font-weight: bold;
     font-style: italic;
-    font-size: 2rem;
 }
 
 html, body {
@@ -98,6 +97,9 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     .back-button {
         font-size: 1.7rem;
     }
+    .status {
+        font-size: 2rem;
+    }
     html, body {
         height: 90%;
     }
@@ -127,6 +129,9 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     .back-button {
         font-size: 1rem;
     }
+    .status {
+        font-size: 1.5rem;
+    }
     .chart-pie-container {
         height: 300%;
     }
@@ -143,6 +148,9 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
         font-size: 2rem;
     }
     .back-button {
+        font-size: 2rem;
+    }
+    .status {
         font-size: 2rem;
     }
     html, body {
