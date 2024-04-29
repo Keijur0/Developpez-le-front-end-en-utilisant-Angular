@@ -24,16 +24,15 @@ export class HomeComponent implements OnInit {
   public loadingMessage: string = "Loading...";
   
   
-  constructor(private olympicService: OlympicService) {}
+  constructor(private olympicService: OlympicService) { 
+    this.olympics$ = olympicService.getOlympics();
+  }
 
   ngOnInit(): void {
     // Loading state
     this.olympicService.getLoadingState().subscribe((loadingState) => {
       this.isLoading = loadingState;
     })
-
-    // Retrieving data
-    this.olympics$ = this.olympicService.getOlympics();
 
     // Error handling
     this.olympicService.getErrorState().subscribe((errorState) => {

@@ -50,7 +50,7 @@ export class InfoBoxComponent implements OnInit {
 
   // Getting nbJos InfoBox in total data
   getNumberOfJos(inputData$: Observable<Olympic[]>): BehaviorSubject<InfoBox> {
-    const subject: BehaviorSubject<InfoBox> = new BehaviorSubject<InfoBox>({name: "Number of JOs", value: 0});
+    const subject$: BehaviorSubject<InfoBox> = new BehaviorSubject<InfoBox>({name: "Number of JOs", value: 0});
     let diffJos: number[] = [];
     inputData$.pipe(
       map(olympicItems => {
@@ -62,12 +62,12 @@ export class InfoBoxComponent implements OnInit {
         return diffJos.length;
       })
     ).subscribe(nbJos => {
-      subject.next({
+      subject$.next({
         name: "Number of JOs",
         value: nbJos
       });
     });
-    return subject;
+    return subject$;
   }
 
   // Getting nbCountries InfoBox in total data
@@ -104,7 +104,7 @@ export class InfoBoxComponent implements OnInit {
 
   // Getting nbAthletes InfoBox in single country data
   getNumberOfAthletes(inputData$: Observable<Olympic[]>): BehaviorSubject<InfoBox> {
-    const subject = new BehaviorSubject<InfoBox>({name: "Number of athletes", value: 0});
+    const subject$ = new BehaviorSubject<InfoBox>({name: "Number of athletes", value: 0});
     inputData$.pipe(
       map(countryData => { 
         const nbAthletes = countryData.reduce((totalAthletes, participationData) => {
@@ -114,15 +114,15 @@ export class InfoBoxComponent implements OnInit {
           name: "Number of athletes",
           value: nbAthletes
         };
-        subject.next(infoBox);
+        subject$.next(infoBox);
       })
     ).subscribe()
-    return subject;
+    return subject$;
   }
 
   // Getting nbMedals InfoBox single country data
   getNumberOfMedals(inputData$: Observable<Olympic[]>): BehaviorSubject<InfoBox> {
-    const subject = new BehaviorSubject<InfoBox>({name: "Total number medals", value: 0});
+    const subject$ = new BehaviorSubject<InfoBox>({name: "Total number medals", value: 0});
     inputData$.pipe(
       map(countryData => {
         const nbMedals = countryData.reduce((totalMedals, participationData) => {
@@ -132,10 +132,10 @@ export class InfoBoxComponent implements OnInit {
           name: "Total number medals",
           value: nbMedals
         };
-        subject.next(infoBox);
+        subject$.next(infoBox);
       })
     ).subscribe()
-    return subject;
+    return subject$;
   }
 
 }

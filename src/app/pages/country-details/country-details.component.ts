@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -32,7 +32,9 @@ export class CountryDetailsComponent implements OnInit {
     public isLoading: boolean = false;
     public loadingMessage: string = "Loading...";
 
-  constructor( private route: ActivatedRoute, private olympicService: OlympicService ) { }
+  constructor( private route: ActivatedRoute, private router : Router, private olympicService: OlympicService ) {
+    this.olympics$ = olympicService.getOlympics();
+   }
 
   ngOnInit(): void {
     // Loading state
@@ -40,10 +42,15 @@ export class CountryDetailsComponent implements OnInit {
       this.isLoading = loadingState;
     })
 
-    // Retrieving data
+    // Retrieving data from home page
     this.route.queryParams.subscribe(params => this.countryName = params['data']);
-    this.olympics$ = this.olympicService.getOlympics();
     this.countryData$ = this.getCountryData(this.olympics$, this.countryName);
+
+    // Checking if country exists in data
+    if(!this.isCountryNameCorrect(this.olympics$, this.countryName)) {
+      console.log("I'm here")
+      this.router.navigateByUrl('**');
+    }
 
     // Error handling
     this.olympicService.getErrorState().subscribe((errorState) => {
@@ -66,4 +73,19 @@ export class CountryDetailsComponent implements OnInit {
       })
     )
   }
+
+    // Checking if country exists in data (e.g: if wrong country name spelling in url)
+    isCountryNameCorrect(inputData$: Observable<Olympic[]>, country: string): boolean {
+      const isNameCorrect$ = inputData$.pipe(
+        map(olympicItems => {
+          return olympicItems.some(olympicItem => country.toLowerCase() === olympicItem.country.toLowerCase())
+        })
+      );
+      let isCorrect: boolean = false;
+      isNameCorrect$.subscribe(isNameCorrect => isCorrect = isNameCorrect);
+      return isCorrect;
+    }
+
 }
+
+
