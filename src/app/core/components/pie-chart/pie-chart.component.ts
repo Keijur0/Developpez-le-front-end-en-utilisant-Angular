@@ -45,7 +45,7 @@ export class PieChartComponent implements OnInit {
       return subject$;
     };
 
-  onSelect(data: Medals) {
-    this.router.navigate(['country-details'], { queryParams: {data: data.name} });
+  onSelect(country: Medals) {
+    this.router.navigate(['country-details'], { queryParams: {country: country.name} });
   }
 }
