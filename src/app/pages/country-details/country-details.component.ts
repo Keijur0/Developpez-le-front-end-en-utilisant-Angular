@@ -11,7 +11,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class CountryDetailsComponent implements OnInit {
   public countryName: string = '';
-  public olympics$ = new Observable<Olympic[]>;
+  private olympics$ = new Observable<Olympic[]>;
   public countryData$ = new Observable<Olympic[]>;
 
     // Line chart options
@@ -23,6 +23,7 @@ export class CountryDetailsComponent implements OnInit {
     showXAxisLabel: boolean = true;
     showYAxisLabel: boolean = false;
     xAxisLabel: string = "Dates";
+    xAxisTicks: number[] = [];
     autoScale: boolean = true;
 
       // Error / loading handling
@@ -37,6 +38,7 @@ export class CountryDetailsComponent implements OnInit {
     // Retrieving data from pie chart
     this.route.queryParams.subscribe(params => this.countryName = params['country']);
 
+    // Retrieving original data
     this.olympics$ = olympicService.getOlympics();
 
     // Loading state
@@ -69,6 +71,11 @@ export class CountryDetailsComponent implements OnInit {
 
     // Narrowing down data to the selected country
     this.countryData$ = this.getCountryData(this.olympics$, this.countryName);
+
+    // Predefine line chart's X Axis values
+    this.getXAxisTicks(this.countryData$).subscribe(ticks => {
+      this.xAxisTicks = ticks;
+    });
   }
 
   // Format specific country data
@@ -89,6 +96,21 @@ export class CountryDetailsComponent implements OnInit {
           );
         })
       );
+    }
+
+    // Defining data on line chart's X axis
+    getXAxisTicks(inputData$: Observable<Olympic[]>): Observable<number[]> {
+      return inputData$.pipe(
+        map(olympicItems => {
+          let xAxisTicks: number[] =[];
+          olympicItems.forEach(olympicItem => {
+            olympicItem.participations.forEach(participationItems => {
+              xAxisTicks.some(year => participationItems.year === year) ? null : xAxisTicks.push(participationItems.year);
+            });
+          });
+          return xAxisTicks;
+        })
+      )
     }
 }
 
