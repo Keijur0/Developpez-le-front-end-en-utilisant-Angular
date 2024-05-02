@@ -27,10 +27,9 @@ export class LineChartComponent implements OnInit {
 @Input() showXAxisLabel: boolean = false;
 @Input() showYAxisLabel: boolean = false;
 @Input() xAxisLabel: string = '';
+@Input() xAxisTicks: number[] = [];
 @Input() autoScale: boolean = false;
 public lineChartData$: BehaviorSubject<MedalsPerOlympic[]> = new BehaviorSubject<MedalsPerOlympic[]>([]);
-
-  constructor() { }
 
   ngOnInit(): void {
     this.lineChartData$ = this.getOlympicDataForLineChart(this.data$);

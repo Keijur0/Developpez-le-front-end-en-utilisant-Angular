@@ -29,7 +29,7 @@ export class PieChartComponent implements OnInit {
 
     // Gathering medals per country and formatting data for chart pie
     getMedalsPerCountry(inputData$: Observable<Olympic[]>): BehaviorSubject<Medals[]> {
-      const subject: BehaviorSubject<Medals[]> = new BehaviorSubject<Medals[]>([]);
+      const subject$: BehaviorSubject<Medals[]> = new BehaviorSubject<Medals[]>([]);
       inputData$.pipe(
         map(olympicData => {
            const medalsPerCountry = olympicData.map(olympicItem => {
@@ -39,13 +39,13 @@ export class PieChartComponent implements OnInit {
               value: totalMedals
             };
           });
-          subject.next(medalsPerCountry);
+          subject$.next(medalsPerCountry);
         })
       ).subscribe()
-      return subject;
+      return subject$;
     };
 
-  onSelect(data: Medals) {
-    this.router.navigate(['country-details'], { queryParams: {data: data.name} });
+  onSelect(country: Medals) {
+    this.router.navigate(['country-details'], { queryParams: {country: country.name} });
   }
 }

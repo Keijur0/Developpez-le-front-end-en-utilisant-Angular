@@ -3,7 +3,7 @@
         <button class="back-button" routerLink="">&lt; back</button>
     </div>
     <div class="header-grid-item-2">
-        <h2 class="title">{{countryName}}</h2>
+        <h2 class="title">{{countryName | titlecase}}</h2>
     </div>
 </div>
 <body *ngIf="countryData$ | async as countryData">
@@ -50,6 +50,7 @@
             [showXAxisLabel]="showXAxisLabel"
             [showYAxisLabel]="showYAxisLabel"
             [xAxisLabel]="xAxisLabel"
+            [xAxisTicks]="xAxisTicks"
             [autoScale]="autoScale"
         >
         </app-line-chart>

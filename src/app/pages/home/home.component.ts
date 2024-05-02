@@ -24,16 +24,12 @@ export class HomeComponent implements OnInit {
   public loadingMessage: string = "Loading...";
   
   
-  constructor(private olympicService: OlympicService) {}
-
-  ngOnInit(): void {
+  constructor(private olympicService: OlympicService) { 
+    this.olympics$ = olympicService.getOlympics();
     // Loading state
     this.olympicService.getLoadingState().subscribe((loadingState) => {
       this.isLoading = loadingState;
     })
-
-    // Retrieving data
-    this.olympics$ = this.olympicService.getOlympics();
 
     // Error handling
     this.olympicService.getErrorState().subscribe((errorState) => {
@@ -42,9 +38,12 @@ export class HomeComponent implements OnInit {
         this.olympicService.getErrorMessage().subscribe((errorMessage) => {
           this.errorMessage = errorMessage;
           this.isLoading = false;
-          
         });
       }
-    })
+    })    
+  }
+
+  ngOnInit(): void {
+
   }
 }

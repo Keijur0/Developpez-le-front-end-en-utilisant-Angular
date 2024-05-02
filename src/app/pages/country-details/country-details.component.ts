@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, map, skip } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -11,7 +11,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 })
 export class CountryDetailsComponent implements OnInit {
   public countryName: string = '';
-  public olympics$ = new Observable<Olympic[]>;
+  private olympics$ = new Observable<Olympic[]>;
   public countryData$ = new Observable<Olympic[]>;
 
     // Line chart options
@@ -23,6 +23,7 @@ export class CountryDetailsComponent implements OnInit {
     showXAxisLabel: boolean = true;
     showYAxisLabel: boolean = false;
     xAxisLabel: string = "Dates";
+    xAxisTicks: number[] = [];
     autoScale: boolean = true;
 
       // Error / loading handling
@@ -31,19 +32,19 @@ export class CountryDetailsComponent implements OnInit {
     public noDataMessage: string = "No data to load.";
     public isLoading: boolean = false;
     public loadingMessage: string = "Loading...";
+    public isCorrect: boolean = false;
 
-  constructor( private route: ActivatedRoute, private olympicService: OlympicService ) { }
+  constructor( private route: ActivatedRoute, private router : Router, private olympicService: OlympicService ) {
+    // Retrieving data from pie chart
+    this.route.queryParams.subscribe(params => this.countryName = params['country']);
 
-  ngOnInit(): void {
+    // Retrieving original data
+    this.olympics$ = olympicService.getOlympics();
+
     // Loading state
-    this.olympicService.getLoadingState().subscribe((loadingState) => {
+    this.olympicService.getLoadingState().subscribe(loadingState => {
       this.isLoading = loadingState;
-    })
-
-    // Retrieving data
-    this.route.queryParams.subscribe(params => this.countryName = params['data']);
-    this.olympics$ = this.olympicService.getOlympics();
-    this.countryData$ = this.getCountryData(this.olympics$, this.countryName);
+    });
 
     // Error handling
     this.olympicService.getErrorState().subscribe((errorState) => {
@@ -52,18 +53,65 @@ export class CountryDetailsComponent implements OnInit {
         this.olympicService.getErrorMessage().subscribe((errorMessage) => {
           this.errorMessage = errorMessage;
           this.isLoading = false;
-          
         });
       }
-    })
+    })    
+   }
+
+  ngOnInit(): void {    
+    // If country name in url is incorrect or not matching with data, go to not-found page
+    this.isCountryNameCorrect(this.olympics$, this.countryName).pipe(
+      skip(1)
+    ).subscribe(isNameCorrect => {
+      this.isCorrect = isNameCorrect; 
+      if(!this.isCorrect) {
+        this.router.navigate(['**']);
+      }
+  })
+
+    // Narrowing down data to the selected country
+    this.countryData$ = this.getCountryData(this.olympics$, this.countryName);
+
+    // Predefine line chart's X Axis values
+    this.getXAxisTicks(this.countryData$).subscribe(ticks => {
+      this.xAxisTicks = ticks;
+    });
   }
 
   // Format specific country data
   getCountryData(inputData$: Observable<Olympic[]>, country: string): Observable<Olympic[]> {
     return inputData$.pipe(
       map(olympicItems => {
-        return olympicItems.filter(olympicItem => country.toLowerCase() === olympicItem.country.toLowerCase());
+        return olympicItems.filter(olympicItem => country.toLowerCase() === olympicItem.country.toLowerCase()
+        );
       })
     )
   }
+
+    // Checking if country exists in data (e.g: if wrong country name spelling in url)
+    isCountryNameCorrect(inputData$: Observable<Olympic[]>, country: string): Observable<boolean> {
+      return inputData$.pipe(
+        map(olympicItems => {
+          return olympicItems.some(olympicItem => country.toLowerCase() === olympicItem.country.toLowerCase()
+          );
+        })
+      );
+    }
+
+    // Defining data on line chart's X axis
+    getXAxisTicks(inputData$: Observable<Olympic[]>): Observable<number[]> {
+      return inputData$.pipe(
+        map(olympicItems => {
+          let xAxisTicks: number[] =[];
+          olympicItems.forEach(olympicItem => {
+            olympicItem.participations.forEach(participationItems => {
+              xAxisTicks.some(year => participationItems.year === year) ? null : xAxisTicks.push(participationItems.year);
+            });
+          });
+          return xAxisTicks;
+        })
+      )
+    }
 }
+
+
