@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, map, skip } from 'rxjs';
+import { Observable, Subject, map, skip, takeUntil } from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 
@@ -9,9 +9,10 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
   templateUrl: './country-details.component.html',
   styleUrls: ['./country-details.component.scss']
 })
-export class CountryDetailsComponent implements OnInit {
-  public countryName: string = '';
+export class CountryDetailsComponent implements OnInit, OnDestroy {
   private olympics$ = new Observable<Olympic[]>;
+  private ngUnsubscribe = new Subject<void>();
+  public countryName: string = '';
   public countryData$ = new Observable<Olympic[]>;
 
     // Line chart options
@@ -42,15 +43,15 @@ export class CountryDetailsComponent implements OnInit {
     this.olympics$ = olympicService.getOlympics();
 
     // Loading state
-    this.olympicService.getLoadingState().subscribe(loadingState => {
+    this.olympicService.getLoadingState().pipe(takeUntil(this.ngUnsubscribe)).subscribe(loadingState => {
       this.isLoading = loadingState;
     });
 
     // Error handling
-    this.olympicService.getErrorState().subscribe((errorState) => {
+    this.olympicService.getErrorState().pipe(takeUntil(this.ngUnsubscribe)).subscribe((errorState) => {
       this.errorState = errorState;
       if (this.errorState) {
-        this.olympicService.getErrorMessage().subscribe((errorMessage) => {
+        this.olympicService.getErrorMessage().pipe(takeUntil(this.ngUnsubscribe)).subscribe((errorMessage) => {
           this.errorMessage = errorMessage;
           this.isLoading = false;
         });
@@ -61,21 +62,27 @@ export class CountryDetailsComponent implements OnInit {
   ngOnInit(): void {    
     // If country name in url is incorrect or not matching with data, go to not-found page
     this.isCountryNameCorrect(this.olympics$, this.countryName).pipe(
+      takeUntil(this.ngUnsubscribe),
       skip(1)
     ).subscribe(isNameCorrect => {
       this.isCorrect = isNameCorrect; 
       if(!this.isCorrect) {
         this.router.navigate(['**']);
       }
-  })
+    })
 
     // Narrowing down data to the selected country
     this.countryData$ = this.getCountryData(this.olympics$, this.countryName);
 
     // Predefine line chart's X Axis values
-    this.getXAxisTicks(this.countryData$).subscribe(ticks => {
+    this.getXAxisTicks(this.countryData$).pipe(takeUntil(this.ngUnsubscribe)).subscribe(ticks => {
       this.xAxisTicks = ticks;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   // Format specific country data

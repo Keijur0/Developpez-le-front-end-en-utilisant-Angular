@@ -40,7 +40,7 @@
     .grid-parent {
         grid-template-rows: repeat(auto-fit, minmax(6px, 1fr));
         grid-gap: 10px;
-        margin-top: 0px;
+        margin-top: 10px;
     }
     .grid-item-1 { 
         justify-self: center;

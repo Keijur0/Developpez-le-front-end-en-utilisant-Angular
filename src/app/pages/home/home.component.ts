@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 
@@ -8,7 +8,8 @@ import { Olympic } from 'src/app/core/models/Olympic';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  private ngUnsubscribe = new Subject<void>();
   public olympics$: Observable<Olympic[]> = new Observable<Olympic[]>;
 
   // Pie chart options
@@ -27,15 +28,15 @@ export class HomeComponent implements OnInit {
   constructor(private olympicService: OlympicService) { 
     this.olympics$ = olympicService.getOlympics();
     // Loading state
-    this.olympicService.getLoadingState().subscribe((loadingState) => {
+    this.olympicService.getLoadingState().pipe(takeUntil(this.ngUnsubscribe)).subscribe((loadingState) => {
       this.isLoading = loadingState;
     })
 
     // Error handling
-    this.olympicService.getErrorState().subscribe((errorState) => {
+    this.olympicService.getErrorState().pipe(takeUntil(this.ngUnsubscribe)).subscribe((errorState) => {
       this.errorState = errorState;
       if (this.errorState) {
-        this.olympicService.getErrorMessage().subscribe((errorMessage) => {
+        this.olympicService.getErrorMessage().pipe(takeUntil(this.ngUnsubscribe)).subscribe((errorMessage) => {
           this.errorMessage = errorMessage;
           this.isLoading = false;
         });
@@ -45,5 +46,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

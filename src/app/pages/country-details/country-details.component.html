@@ -6,6 +6,9 @@
         <h2 class="title">{{countryName | titlecase}}</h2>
     </div>
 </div>
+<body *ngIf="(countryData$ | async) == null">
+    <div class="status center">{{noDataMessage}}</div>
+</body>
 <body *ngIf="countryData$ | async as countryData">
     <!-- If error -->
     <div *ngIf="countryData.length == 0 && errorState">

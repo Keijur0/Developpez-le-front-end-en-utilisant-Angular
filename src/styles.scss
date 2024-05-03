@@ -143,9 +143,23 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     }
 }
 
-@media screen and (max-height: 600px) and (max-width: 1000px) {
+@media screen and (max-height: 700px) and (max-width: 1000px) {
+    .pie-chart-container {
+        position: absolute;
+        top: 200px;
+        left: 50px;
+        right: 50px;
+        bottom: 50px;
+    }
+    .line-chart-container {
+        position: absolute;
+        top: 170px;
+        left: 80px;
+        right: 80px;
+        bottom: 5px;
+    }
     .title {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .back-button {
         font-size: 1rem;
