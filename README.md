@@ -1,29 +1,30 @@
-# OlympicGamesStarter
+### OlympicGamesStarter ###
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## PRE-REQUIS
+Avant de charger cette application, il est nécessaire d'avoir installé npm (version LTS de préférence) au préalable.
+Pour cela: tappez "npm install" dans l'invite de commandes (cmd), après l'avoir lancé en mode administrateur (clic 
+droit sur l'invite de commandes puis "Exécuter en tant qu'administrateur").
 
-Don't forget to install your node_modules before starting (`npm install`).
+## RECUPERATION DE L'APPLICATION
+Pour récupérer l'application, il faudra vous trouver sur GitHub, dans le repository suivant: 
+"https://github.com/Keijur0/Developpez-le-front-end-en-utilisant-Angular"
 
-## Development server
+1- Sur le côté droit de la partie centrale, cliquez sur "Code"
+2- Dans la fenêtre qui s'ouvrira, cliquez sur HTTPS afin de trouver le lien qui vous permettra de cloner 
+l'application en local.
+3- Copiez le lien dans votre presse-papiers (il y a un bouton prévu à cet effet, à côté du lien).
+4- Ouvrez de nouveau votre invite de commandes (cmd) en mode administrateur, puis tappez "git clone <lien https>" en 
+collant le lien que vous venez de copier à la place de <lien https>.
+5- Le dossier de l'application se trouvera là où votre invite de commandes indique que vous vous trouvez au moment 
+où vous avez exécuté la commande de l'étape 4.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Where to start
-
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
-
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
-
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
-
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
-
-You're now ready to implement the requested features.
-
-Good luck!
+## CHARGEMENT DE L'APPLICATION
+1- Dans l'invite de commandes, placez-vous dans le répertoire de l'application en exécutant la commande suivante:
+"cd Developpez-le-front-end-en-utilisant-Angular" puis tappez sur "Entrée".
+2- Une fois dans le répertoire de l'application, exécutez la commande suivante: "ng serve".
+3- Lorsque la compilation sera terminée, il vous sera indiqué le lien http à partir duquel vous pourrez accéder à
+l'application. 
+4- Normalement ce lien sera: http://localhost:4200, à moins que ce port soit déjà utilisé pour une
+autre application, dans ce cas, il vous sera demandé si vous souhaitez utiliser un autre port, choisissez Yes/Oui.
+5- Démarrez votre navigateur web et accédez au lien qui vous sera indiqué dans votre invite de commandes.
+6- L'application est maintenant lancée, vous pouvez commencer à naviguer.
