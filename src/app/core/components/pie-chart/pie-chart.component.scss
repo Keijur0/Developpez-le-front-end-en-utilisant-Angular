@@ -14,8 +14,8 @@
     }
 }
 
-@media screen and (max-height: 600px) and (min-width: 1000px) {
+@media screen and (max-height: 700px) and (min-width: 650px) {
     ::ng-deep ngx-charts-chart .pie-label {
-        font-size: 1.2rem;
+        font-size: 0.9rem;
     }
 }

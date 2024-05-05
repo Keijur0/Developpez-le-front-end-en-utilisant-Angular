@@ -32,7 +32,7 @@ p, div {
     }
 }
 
-@media screen and (max-height: 600px) and (max-width: 1000px) {
+@media screen and (max-height: 700px) and (min-width: 650px) {
     .infobox {
         font-size: 1.1rem;
     }
