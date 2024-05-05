@@ -1,9 +1,13 @@
 # OlympicGamesStarter #
 
 ## PRE-REQUIS
-Avant de charger cette application, il est nécessaire d'avoir installé npm (version LTS de préférence) au préalable.
-Pour cela: tappez "npm install" dans l'invite de commandes (cmd), après l'avoir lancé en mode administrateur (clic 
-droit sur l'invite de commandes puis "Exécuter en tant qu'administrateur").
+Avant de charger cette application, il est nécessaire d'avoir installé npm (version LTS de préférence) et Angular CLI au préalable.
+
+# NPM
+Pour installer npm, tappez `npm install` dans l'invite de commandes (cmd), après l'avoir lancé en mode administrateur (clic droit sur l'invite de commandes puis "Exécuter en tant qu'administrateur").
+
+# Angular CLI
+Une fois npm installé, restez dans l'invite de commandes en administrateur, entrez la commande suivante: `npm install -g @angular/cli`.
 
 ## RECUPERATION DE L'APPLICATION
 Pour récupérer l'application, il faudra vous trouver sur GitHub, dans le repository suivant: 
