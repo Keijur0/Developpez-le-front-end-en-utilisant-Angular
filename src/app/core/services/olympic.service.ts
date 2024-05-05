@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Olympic } from '../models/Olympic';
 
@@ -16,7 +16,7 @@ export class OlympicService {
 
   constructor(private http: HttpClient) {}
 
-  loadInitialData() {
+  loadInitialData(): Observable<Olympic[]> {
     this.loadingState$.next(true);
     return this.http.get<Olympic[]>(this.olympicUrl).pipe(
       tap((value) => {
@@ -35,19 +35,19 @@ export class OlympicService {
     );
   }
 
-  getOlympics() {
+  getOlympics(): Observable<Olympic[]> {
     return this.olympics$.asObservable();
   }
 
-  getErrorState() {
+  getErrorState(): Observable<boolean> {
     return this.errorState$.asObservable();
   }
 
-  getErrorMessage() {
+  getErrorMessage(): Observable<string> {
     return this.errorMessage$.asObservable();
   }
 
-  getLoadingState() {
+  getLoadingState(): Observable<boolean> {
     return this.loadingState$.asObservable();
   }
 }
