@@ -36,11 +36,24 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     public isCorrect: boolean = false;
 
   constructor( private route: ActivatedRoute, private router : Router, private olympicService: OlympicService ) {
+    // Retrieving original data
+    this.olympics$ = olympicService.getOlympics();
+   }
+
+  ngOnInit(): void {    
     // Retrieving data from pie chart
     this.route.queryParams.subscribe(params => this.countryName = params['country']);
 
-    // Retrieving original data
-    this.olympics$ = olympicService.getOlympics();
+    // If country name in url is incorrect or not matching with data, go to not-found page
+    this.isCountryNameCorrect(this.olympics$, this.countryName).pipe(
+      takeUntil(this.ngUnsubscribe),
+      skip(1)
+    ).subscribe(isNameCorrect => {
+      this.isCorrect = isNameCorrect; 
+      if(!this.isCorrect) {
+        this.router.navigate(['**']);
+      }
+    })
 
     // Loading state
     this.olympicService.getLoadingState().pipe(takeUntil(this.ngUnsubscribe)).subscribe(loadingState => {
@@ -56,20 +69,7 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         });
       }
-    })    
-   }
-
-  ngOnInit(): void {    
-    // If country name in url is incorrect or not matching with data, go to not-found page
-    this.isCountryNameCorrect(this.olympics$, this.countryName).pipe(
-      takeUntil(this.ngUnsubscribe),
-      skip(1)
-    ).subscribe(isNameCorrect => {
-      this.isCorrect = isNameCorrect; 
-      if(!this.isCorrect) {
-        this.router.navigate(['**']);
-      }
-    })
+    })  
 
     // Narrowing down data to the selected country
     this.countryData$ = this.getCountryData(this.olympics$, this.countryName);

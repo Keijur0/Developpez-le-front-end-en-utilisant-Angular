@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
@@ -8,7 +8,7 @@ import { Olympic } from 'src/app/core/models/Olympic';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   public olympics$: Observable<Olympic[]> = new Observable<Olympic[]>;
 
@@ -26,7 +26,10 @@ export class HomeComponent implements OnDestroy {
   
   
   constructor(private olympicService: OlympicService) { 
-    this.olympics$ = olympicService.getOlympics();
+    this.olympics$ = olympicService.getOlympics();  
+  }
+
+  ngOnInit(): void {
     // Loading state
     this.olympicService.getLoadingState().pipe(takeUntil(this.ngUnsubscribe)).subscribe((loadingState) => {
       this.isLoading = loadingState;
@@ -41,7 +44,7 @@ export class HomeComponent implements OnDestroy {
           this.isLoading = false;
         });
       }
-    })    
+    })  
   }
 
   ngOnDestroy(): void {
