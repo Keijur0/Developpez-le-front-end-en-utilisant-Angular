@@ -35,14 +35,16 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
     public loadingMessage: string = "Loading...";
     public isCorrect: boolean = false;
 
-  constructor( private route: ActivatedRoute, private router : Router, private olympicService: OlympicService ) {
+  constructor( private route: ActivatedRoute, private router: Router, private olympicService: OlympicService ) {
     // Retrieving original data
     this.olympics$ = olympicService.getOlympics();
    }
 
   ngOnInit(): void {    
     // Retrieving data from pie chart
-    this.route.queryParams.subscribe(params => this.countryName = params['country']);
+    this.route.queryParams.pipe(
+      takeUntil(this.ngUnsubscribe)
+    ).subscribe(params => this.countryName = params['country']);
 
     // If country name in url is incorrect or not matching with data, go to not-found page
     this.isCountryNameCorrect(this.olympics$, this.countryName).pipe(
